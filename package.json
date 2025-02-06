@@ -1,0 +1,12 @@
+{
+  "name": "mern_authentication",
+  "version": "1.0.0",
+  "description": "An advanced MERN Authentication system that allows for validation and sanitization of user input\r It also generates a code once the user log in to the account and also provides an email to reset password\r It uses bcryptjs to ecrypt passwords during storage to the database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
