@@ -7,13 +7,18 @@ import userRouter from './routes/auth.route.js'
 const app=express();
 dotenv.config();
 
+const PORT=process.env.PORT || 5000
+
+// Will allow us to pass incoming request from request body :req.body
+app.use(express.json());
+
 app.use("/api/auth", userRouter);
 
  
 
-app.listen(5000, ()=> {
+app.listen(PORT, ()=> {
     connectDB();
-    console.log("App is running on port 3000");
+    console.log(`App is running on port ${PORT}`);
 })
 
 
