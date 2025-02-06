@@ -2,11 +2,25 @@
   "name": "mern_authentication",
   "version": "1.0.0",
   "description": "An advanced MERN Authentication system that allows for validation and sanitization of user input\r It also generates a code once the user log in to the account and also provides an email to reset password\r It uses bcryptjs to ecrypt passwords during storage to the database",
-  "main": "index.js",
+  "main": "backend/server.js.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "dev": "nodemon backend/server.js"
+   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mailtrap": "^3.4.0",
+    "mongoose": "^8.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
