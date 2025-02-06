@@ -2,13 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 
 import { connectDB } from './db/connectDB.js';
+import userRouter from './routes/auth.route.js'
 
 const app=express();
 dotenv.config();
 
-app.get('/', (req,res)=> {
-    res.send("Authentication code");
-})
+app.use("/api/auth", userRouter);
+
+ 
 
 app.listen(5000, ()=> {
     connectDB();
