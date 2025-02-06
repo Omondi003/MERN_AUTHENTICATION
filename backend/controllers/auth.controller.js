@@ -1,5 +1,6 @@
 import { user } from '../models/user.models.js'
 import bcryptjs from 'bcryptjs'
+import { generateTokenAndSetCookie } from '../Utils/generateTokenAndSetCookie.js';
  
 export const signup = async (req, res) => {
 
@@ -12,7 +13,7 @@ const {email, password, name}= req.body
         }
  
         // check if the user already exists since email is unique
-        const userAlreadyExists=await User.findOne({email})
+        const userAlreadyExists=await user.findOne({email})
 
         if (userAlreadyExists){
             return res.status(400).json({success:false, message:"User already exists"})
@@ -45,7 +46,7 @@ const {email, password, name}= req.body
             success:true,
             message: "User created successfully",
             user : {
-                ...user._doc,
+                ...User._doc,
                 password: undefined
             }
         });
