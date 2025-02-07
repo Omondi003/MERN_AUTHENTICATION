@@ -5,7 +5,7 @@
   "main": "backend/server.js.js",
   "scripts": {
     "dev": "nodemon backend/server.js"
-   },
+  },
   "keywords": [],
   "author": "",
   "type": "module",
@@ -18,6 +18,7 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^3.4.0",
+    "mern_authentication": "file:",
     "mongoose": "^8.10.0"
   },
   "devDependencies": {
