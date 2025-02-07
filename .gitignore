@@ -1,2 +1,2 @@
-# Ignore the environment variable
+# Ignore the environment variable during commit
 .env
