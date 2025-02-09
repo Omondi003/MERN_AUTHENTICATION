@@ -68,8 +68,36 @@ const {email, password, name}= req.body
     }
 };
 
+export const verifyEmail= async (req,res)=>{
 
+    const {code}= req.body;
 
+    try {
+
+        // Find the user by verification code and expiry of verificationtoken
+            const User=await user.findOne({
+                verificationToken:code,
+                verificationTokenExpiresAt: {$gt:Date.now()}
+            })
+
+            // message to return if the user is not found
+            if(!user){
+                return res.status(400).json({success:"false" , message: "Invalid verificationToken"})
+            }
+
+            // If the user is found, change the status to for verified to true
+            user.isVerified=true,
+            user.verificationToken=undefined,
+            user.verificationTokenExpiresAt=undefined
+
+            await user.save();
+            await sendWelcomeEmail(user.email, user.name);
+
+        
+    } catch (error) {
+        
+    }
+}
 
 
 

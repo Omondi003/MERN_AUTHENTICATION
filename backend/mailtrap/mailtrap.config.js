@@ -4,6 +4,7 @@
 dotenv.config();
 
 
+// Configuartion for sending mailtrap emails using mailtrapClient
 const TOKEN = process.env.MAILTRAP_TOKEN;
 
  export const mailtrapClient = new MailtrapClient({
