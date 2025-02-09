@@ -20,11 +20,12 @@ const userSchema=new mongoose.Schema({
     },
     lastLogin : {
         type:Date,
-        Default:Date.now()
+        default:Date.now()
     },
+
     isVerified : {
          type:Boolean,
-         Default:false
+         default:false
     }, 
 
     resetPasswordToken:String,
