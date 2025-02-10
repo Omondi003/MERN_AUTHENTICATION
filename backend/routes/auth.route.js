@@ -7,6 +7,6 @@ router.post('/login', login)
 router.post('/signup', signup )
 router.post('/signout',  signout)
 
-app.post('/verify_email', verifyEmail)
+router.post('/verify_email', verifyEmail)
 
 export default router;

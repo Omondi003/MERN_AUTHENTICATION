@@ -2,6 +2,7 @@ import { user } from '../models/user.models.js'
 import bcryptjs from 'bcryptjs'
 import { generateTokenAndSetCookie } from '../Utils/generateTokenAndSetCookie.js';
 import { sendVerificationEmail } from '../mailtrap/emails.js';
+import { sendWelcomeEmail } from '../mailtrap/emails.js';
 
  
  
@@ -79,22 +80,35 @@ export const verifyEmail= async (req,res)=>{
                 verificationToken:code,
                 verificationTokenExpiresAt: {$gt:Date.now()}
             })
+            console.log(User)
 
             // message to return if the user is not found
-            if(!user){
+            if(!User){
                 return res.status(400).json({success:"false" , message: "Invalid verificationToken"})
             }
 
             // If the user is found, change the status to for verified to true
-            user.isVerified=true,
-            user.verificationToken=undefined,
-            user.verificationTokenExpiresAt=undefined
+            User.isVerified=true,
+            User.verificationToken=undefined,
+            User.verificationTokenExpiresAt=undefined
 
-            await user.save();
-            await sendWelcomeEmail(user.email, user.name);
+            await User.save();
+            await sendWelcomeEmail(User.email, User.name);
+
+            res.status(200).json({
+                success:true,
+                message:"Email verified successfully",
+                user : {
+                    ...User._doc,
+                    password:undefined
+                }
+            })
 
         
     } catch (error) {
+
+        console.log("error in verifyEmail ", error);
+		res.status(500).json({ success: false, message: "Server error" });
         
     }
 }
