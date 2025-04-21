@@ -1,5 +1,7 @@
 import { user } from '../models/user.models.js'
 import bcryptjs from 'bcryptjs'
+import crypto from 'crypto'
+
 import { generateTokenAndSetCookie } from '../Utils/generateTokenAndSetCookie.js';
 import { sendVerificationEmail } from '../mailtrap/emails.js';
 import { sendWelcomeEmail } from '../mailtrap/emails.js';
@@ -113,12 +115,9 @@ export const verifyEmail= async (req,res)=>{
     }
 }
 
-
-
 export const login = async (req, res) => {
 
-    const {email, password}=req.body  
-     
+    const {email, password}=req.body       
 
       try {
 		const User = await user.findOne({ email });
@@ -149,9 +148,26 @@ export const login = async (req, res) => {
 	}
 };
 
- 
-
 export const signout = async (req, res) => {
     res.clearCookie("token");
     res.status(200).json({success:true, message:"logged out successfully"})
 };
+
+export const forgotPassword=async (req,res)=> {
+ 
+    const { email }=req.body
+
+    try {
+        const User=await user.findOne({email})
+        if(!User){
+            res.status(400).json({success:false, message: "user not found"})
+        }
+
+        // Generate reset token
+        const resetPasswordToken=crypto.randomBytes(20).toString(hex)
+        const resePasswordExpiresAt=Date.now() + 1 * 60 * 60 * 1000;
+        
+    } catch (error) {
+        
+    }
+}
