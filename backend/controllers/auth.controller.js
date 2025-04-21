@@ -164,9 +164,15 @@ export const forgotPassword=async (req,res)=> {
         }
 
         // Generate reset token
-        const resetPasswordToken=crypto.randomBytes(20).toString(hex)
-        const resePasswordExpiresAt=Date.now() + 1 * 60 * 60 * 1000;
+        const resetToken=crypto.randomBytes(20).toString(hex)
+        const resetTokenExpiresAt=Date.now() + 1 * 60 * 60 * 1000;
         
+        User.resetPasswordToken=resetToken;
+        User.resePasswordExpiresAt=resetTokenExpiresAt;
+
+        // Saving the user to the database
+        await User.save
+
     } catch (error) {
         
     }
