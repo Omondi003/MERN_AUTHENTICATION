@@ -5,6 +5,7 @@ import crypto from 'crypto'
 import { generateTokenAndSetCookie } from '../Utils/generateTokenAndSetCookie.js';
 import { sendVerificationEmail } from '../mailtrap/emails.js';
 import { sendWelcomeEmail } from '../mailtrap/emails.js';
+import { sendPasswordResetEmail } from '../mailtrap/emails.js';
 
  
  
@@ -164,16 +165,23 @@ export const forgotPassword=async (req,res)=> {
         }
 
         // Generate reset token
-        const resetToken=crypto.randomBytes(20).toString(hex)
+        const resetToken=crypto.randomBytes(20).toString("hex");
         const resetTokenExpiresAt=Date.now() + 1 * 60 * 60 * 1000;
         
         User.resetPasswordToken=resetToken;
         User.resePasswordExpiresAt=resetTokenExpiresAt;
 
         // Saving the user to the database
-        await User.save
+        await User.save();
+
+        // Sending passwordEmail
+        await sendPasswordResetEmail(User.email, `${process.env.CLIENT_URL} /resetPassword/ ${resetToken}`)
+
+        res.status(200).json({success:true, message:"Password reset link sent to your  email"})
 
     } catch (error) {
-        
+        console.log("Error in forgotPassword", error)
+        res.status(201).json({success:false, message:error.message})
+
     }
 }
